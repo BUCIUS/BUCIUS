@@ -1,0 +1,29 @@
+function LoadTimers() {
+    var czasCont = document.getElementsByClassName('countTime');
+
+    for (let i = 0; i < czasCont.length; i++) {
+        var startTime = czasCont[i].getAttribute('data-start');
+        var endTime = czasCont[i].getAttribute('data-end');
+        try {
+            var x = setInterval(function() {
+                var countDownDate = new Date(endTime).getTime();
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                if (distance < 0) {
+                    clearInterval(x);
+                }
+                czasCont[i].getElementsByClassName('day')[0].innerText = days;
+                czasCont[i].getElementsByClassName('hour')[0].innerText = hours;
+                czasCont[i].getElementsByClassName('minute')[0].innerText = minutes;
+                czasCont[i].getElementsByClassName('second')[0].innerText =seconds;
+            }, 1000);
+        } catch (error) {
+            console.error(error);
+
+        }
+    }
+}
